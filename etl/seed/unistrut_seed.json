@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "vendor": "Unistrut",
+    "catalog": {
+      "source_file": "unistrut-general-catalog.pdf",
+      "sha256": "afd2d2d6c9bbf7825848ce137f0a283d553f40431658ae551494f9ed21a84945",
+      "ingested_at": "2026-01-18T04:24:16"
+    },
+    "units": {"internal": "SI", "display_default": "imperial"},
+    "schema_version": "0.1.0",
+    "record_status": "seed_unverified"
+  },
+  "profiles": [
+    {
+      "id": "P1000",
+      "family": "1-5/8 x 1-5/8",
+      "gauge": 12,
+      "geometry": {
+        "width": {"in": 1.625, "mm": 41.275},
+        "height": {"in": 1.625, "mm": 41.275},
+        "thickness": {"in": 0.105, "mm": 2.667},
+        "lip": {"in": null, "mm": null},
+        "corner_radius": {"in": null, "mm": null}
+      },
+      "mass": {"lb_per_ft": null, "kg_per_m": null},
+      "finishes": ["EG", "HG", "GR", "PL", "PG", "DF", "ZD"],
+      "standard_lengths": {"ft": [10.0, 20.0], "m": [3.048, 6.096]},
+      "properties": {"section": {}, "material": {}},
+      "provenance": {"source_pages": [], "table": null, "notes": ["Seed row; fill from catalog table."]}
+    },
+    {
+      "id": "P4100",
+      "family": "1-5/8 x 13/16",
+      "gauge": 14,
+      "geometry": {
+        "width": {"in": 1.625, "mm": 41.275},
+        "height": {"in": 0.8125, "mm": 20.6375},
+        "thickness": {"in": 0.075, "mm": 1.905},
+        "lip": {"in": null, "mm": null},
+        "corner_radius": {"in": null, "mm": null},
+        "profile_spec": {
+          "kind": "u_channel_lipped",
+          "t": {"in": 0.075, "mm": 1.905},
+          "lip_return": {"in": 0.375, "mm": 9.525},
+          "inside_radius": {"in": 0.06, "mm": 1.524}
+        }
+      },
+      "mass": {"lb_per_ft": null, "kg_per_m": null},
+      "finishes": ["EG", "HG", "GR", "PL", "PG", "DF", "ZD"],
+      "standard_lengths": {"ft": [10.0, 20.0], "m": [3.048, 6.096]},
+      "properties": {"section": {}, "material": {}},
+      "provenance": {"source_pages": [], "table": null, "notes": ["Seed row; fill from catalog table."]}
+    }
+  ],
+  "pierced_variants": [],
+  "fittings": [
+    {
+      "id": "GEN_ANGLE_90",
+      "name": "Generic 90° Angle Plate (placeholder)",
+      "category": "angle",
+      "thickness": {"in": 0.25, "mm": 6.35},
+      "holes": [{"diameter": {"in": 0.5625, "mm": 14.2875}, "pattern": "1-7/8 pitch"}],
+      "mate_frames": [
+        {"id": "A", "kind": "LCS", "description": "Mount face"},
+        {"id": "B", "kind": "LCS", "description": "Channel face"}
+      ],
+      "provenance": {"source_pages": [], "notes": ["Placeholder record for acceptance tests."]}
+    }
+  ],
+  "hardware": [],
+  "finishes": [
+    {"code": "EG", "name": "Electro-galvanized", "standards": ["ASTM B633 Type III SC1"], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "HG", "name": "Hot-dipped galvanized", "standards": ["ASTM A123", "ASTM A153"], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "GR", "name": "Green Powder Coat", "standards": ["Commercial powder coating standards"], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "PG", "name": "Pre-galvanized", "standards": ["ASTM A653 G90"], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "PL", "name": "Plain", "standards": [], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "DF", "name": "Unistrut Defender", "standards": ["ASTM A1046", "ASTM A1059"], "provenance": {"source_pages": [], "notes": []}},
+    {"code": "ZD", "name": "Perma-Gold", "standards": ["ASTM B633 Type II SC3"], "provenance": {"source_pages": [], "notes": []}}
+  ],
+  "load_tables": []
+}
