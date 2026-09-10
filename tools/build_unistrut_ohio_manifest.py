@@ -23,13 +23,16 @@ def fetch_html(url: str) -> str:
 
 def build_manifest(html: str, source_url: str = ARCHIVE_URL) -> dict:
     soup = BeautifulSoup(html, "html.parser")
-    records: list[dict] = []
+    records_by_url: dict[str, dict] = {}
     current_category: str | None = None
 
     for node in soup.find_all(["h2", "a"]):
         if node.name == "h2":
             heading = " ".join(node.stripped_strings)
-            if heading and heading not in {"Submittal Categories:", "Unistrut Submittal Data Sheet Archive"}:
+            if heading and heading not in {
+                "Submittal Categories:",
+                "Unistrut Submittal Data Sheet Archive",
+            }:
                 current_category = heading
             continue
 
@@ -45,15 +48,23 @@ def build_manifest(html: str, source_url: str = ARCHIVE_URL) -> dict:
         if "cdn.shopify.com" not in absolute_url:
             continue
 
-        records.append(
-            {
+        record = records_by_url.get(absolute_url)
+        if record is None:
+            records_by_url[absolute_url] = {
                 "category": current_category,
                 "label": label,
                 "document_url": absolute_url,
             }
-        )
+        elif label != record["label"]:
+            aliases = record.setdefault("aliases", [])
+            if label not in aliases:
+                aliases.append(label)
+                aliases.sort(key=str.casefold)
 
-    records.sort(key=lambda r: (r["category"].casefold(), r["label"].casefold(), r["document_url"]))
+    records = sorted(
+        records_by_url.values(),
+        key=lambda r: (r["category"].casefold(), r["label"].casefold(), r["document_url"]),
+    )
 
     return {
         "schema_version": 1,
