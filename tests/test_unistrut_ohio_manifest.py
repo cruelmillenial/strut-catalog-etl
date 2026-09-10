@@ -1,6 +1,4 @@
-from pathlib import Path
-
-from tools.build_unistrut_ohio_manifest import build_manifest
+from strut_catalog_etl.unistrut_ohio_manifest import build_manifest
 
 
 def test_build_manifest_extracts_shopify_documents():
@@ -29,5 +27,8 @@ def test_manifest_has_no_duplicate_document_urls():
     """
 
     manifest = build_manifest(html)
-    urls = [d["document_url"] for d in manifest["documents"]]
+    docs = manifest["documents"]
+    urls = [d["document_url"] for d in docs]
+
     assert len(urls) == len(set(urls))
+    assert docs[0]["alternate_labels"] == ["P1000 duplicate label"]
