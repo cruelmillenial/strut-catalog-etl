@@ -1,37 +1,41 @@
 {
   "schema_version": 1,
-  "profile_family": {
-    "id": "P1000",
-    "manufacturer": "Unistrut",
-    "description": "P1000 - 1-5/8 in. x 1-5/8 in., 12 Gauge Channel, Solid",
-    "geometry": {
-      "width_in": 1.625,
-      "height_in": 1.625,
+  "profiles": [
+    {
+      "id": "P1000",
+      "family": "1-5/8 x 1-5/8",
       "gauge": 12,
-      "piercing": "solid"
-    },
-    "materials_finishes": {
-      "standard": [
-        {"code": "PG", "name": "Pregalvanized", "standard": "ASTM A653 SS GR 33, G90"},
-        {"code": "DF", "name": "Unistrut Defender", "standard": "ASTM A1046 SS GR 33"},
-        {"code": "HG", "name": "Hot Dip Galvanized", "standard": "Steel: ASTM A1011 SS GR 33; Finish: ASTM A123"},
-        {"code": "GR", "name": "Perma-Green", "standard": "Steel: ASTM A1011 SS GR 33; E-Coat finish"},
-        {"code": "ZD", "name": "Perma-Gold", "standard": "Steel: ASTM A1011 SS GR 33; Finish: ASTM B633, Type II SC3"},
-        {"code": "PL", "name": "Plain", "standard": "ASTM A1011 SS GR 33"}
-      ],
-      "special_metals": [
-        {"code": "SS", "name": "Stainless Steel Type 304", "standard": "ASTM A240, Type 304"},
-        {"code": "ST", "name": "Stainless Steel Type 316", "standard": "ASTM A240, Type 316"},
-        {"code": "EA", "name": "Aluminum 6063-T6", "standard": "ASTM B221, Type 6063-T6 (Extruded)"}
-      ]
-    },
-    "standard_lengths_ft": [10, 20],
-    "source": {
-      "document_type": "manufacturer_submittal",
-      "title": "P1000 Submittal",
-      "publisher": "Atkore / Unistrut",
-      "archive_url": "https://unistrutohio.com/pages/submittal-data-sheets",
-      "notes": "Golden fixture manually transcribed from the reviewed P1000 submittal. Engineering load tables and section properties are intentionally deferred to a later extraction pass."
+      "geometry": {
+        "width": {"in": 1.625, "mm": 41.3},
+        "height": {"in": 1.625, "mm": 41.3},
+        "thickness": {"in": 0.105, "mm": 2.7},
+        "piercing": {"series": null, "template": null, "overrides": {}},
+        "profile_spec": {
+          "kind": "u_channel_lipped",
+          "t": {"in": 0.105, "mm": 2.7},
+          "lip_return": {"in": 0.375, "mm": 9.5}
+        }
+      },
+      "mass": {"lb_per_ft": 1.9, "kg_per_m": 2.8},
+      "finishes": ["PL", "GR", "HG", "PG"],
+      "standard_lengths": {"ft": [10.0, 20.0], "m": [3.05, 6.1]},
+      "properties": {
+        "section": {
+          "allowable_moment": {"in_lb": 5080, "N_m": 570}
+        }
+      },
+      "provenance": {
+        "source_id": "P1000_SUBMITTAL",
+        "source_file": "P1000_submittal.pdf",
+        "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_pages": [1, 2],
+        "table": "P1000 submittal",
+        "notes": [
+          "Golden fixture manually reconciled to the canonical normalized profile schema.",
+          "Source digest and exact source filename remain placeholders until the submittal acquisition step is wired in.",
+          "Engineering load tables and additional section properties remain deferred to a later extraction pass."
+        ]
+      }
     }
-  }
+  ]
 }
