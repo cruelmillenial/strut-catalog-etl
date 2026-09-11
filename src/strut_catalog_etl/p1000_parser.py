@@ -1,12 +1,10 @@
-"""Narrow parser/normalizer for the reviewed P1000 submittal fixture.
-
-This first pass is intentionally conservative: it normalizes only the fields
-already represented by the golden P1000 fixture. PDF text extraction and
-source acquisition remain separate concerns.
-"""
+"""Normalize the reviewed P1000 submittal into the canonical profile schema."""
 from __future__ import annotations
 
 from copy import deepcopy
+from pathlib import Path
+
+from .pdf_source import build_raw_pdf_record
 
 
 _P1000_TEMPLATE = {
@@ -37,13 +35,12 @@ _P1000_TEMPLATE = {
             },
             "provenance": {
                 "source_id": "P1000_SUBMITTAL",
-                "source_file": "P1000_submittal.pdf",
+                "source_file": "P1000_Submittal.pdf",
                 "source_sha256": "0" * 64,
                 "source_pages": [1, 2],
                 "table": "P1000 submittal",
                 "notes": [
                     "Golden fixture manually reconciled to the canonical normalized profile schema.",
-                    "Source digest and exact source filename remain placeholders until the submittal acquisition step is wired in.",
                     "Engineering load tables and additional section properties remain deferred to a later extraction pass.",
                 ],
             },
@@ -52,14 +49,41 @@ _P1000_TEMPLATE = {
 }
 
 
-def normalize_p1000_submittal(*, source_file: str = "P1000_submittal.pdf", source_sha256: str | None = None) -> dict:
-    """Return the canonical normalized P1000 record for the reviewed submittal.
+def normalize_p1000_raw(raw: dict) -> dict:
+    """Normalize a raw P1000 PDF record into the canonical profile shape.
 
-    The current implementation establishes the parser contract before wiring in
-    PDF text extraction. Callers may supply acquired source provenance so the
-    generated record can later be compared directly with the golden fixture.
+    This pass deliberately keeps the reviewed engineering values fixed while
+    provenance is derived from the actual acquired PDF. The next parser pass
+    can replace each fixed field with text/table extraction one field at a time.
     """
+    source = raw["source"]
+    record = raw["extraction"]["records"][0]
+    if record["id"] != "P1000":
+        raise ValueError(f"expected raw record id 'P1000', got {record['id']!r}")
 
+    data = deepcopy(_P1000_TEMPLATE)
+    provenance = data["profiles"][0]["provenance"]
+    provenance["source_id"] = source["id"]
+    provenance["source_file"] = source["file"]
+    provenance["source_sha256"] = source["sha256"]
+    provenance["source_pages"] = source["pages_used"]
+    return data
+
+
+def normalize_p1000_pdf(path: Path) -> tuple[dict, dict]:
+    """Extract the local P1000 PDF and return ``(raw, normalized)`` records."""
+    raw = build_raw_pdf_record(
+        Path(path),
+        source_id="P1000_SUBMITTAL",
+        title="P1000 Submittal",
+        record_id="P1000",
+        pages_used=[1, 2],
+    )
+    return raw, normalize_p1000_raw(raw)
+
+
+def normalize_p1000_submittal(*, source_file: str = "P1000_Submittal.pdf", source_sha256: str | None = None) -> dict:
+    """Backward-compatible helper retained for existing tests/callers."""
     data = deepcopy(_P1000_TEMPLATE)
     provenance = data["profiles"][0]["provenance"]
     provenance["source_file"] = source_file
