@@ -26,13 +26,12 @@
       },
       "provenance": {
         "source_id": "P1000_SUBMITTAL",
-        "source_file": "P1000_submittal.pdf",
+        "source_file": "P1000_Submittal.pdf",
         "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
         "source_pages": [1, 2],
         "table": "P1000 submittal",
         "notes": [
           "Golden fixture manually reconciled to the canonical normalized profile schema.",
-          "Source digest and exact source filename remain placeholders until the submittal acquisition step is wired in.",
           "Engineering load tables and additional section properties remain deferred to a later extraction pass."
         ]
       }
