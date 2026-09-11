@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from fractions import Fraction
 from pathlib import Path
+import re
 
 from .pdf_source import build_raw_pdf_record
 
@@ -48,25 +50,98 @@ _P1000_TEMPLATE = {
     ],
 }
 
+_HEADER_RE = re.compile(
+    r"(?P<id>P\d+)\s*-\s*(?P<width>[\d\-/]+)\"\s*x\s*"
+    r"(?P<height>[\d\-/]+)\"\s*,\s*(?P<gauge>\d+)\s*Gauge\s*"
+    r"Channel\s*,\s*(?P<form>[A-Za-z]+)",
+    re.IGNORECASE | re.DOTALL,
+)
+_LENGTH_RE = re.compile(
+    r"(?P<ft>\d+)\s*feet\s*:.*?\((?P<m>\d+(?:\.\d+)?)m\)",
+    re.IGNORECASE,
+)
+_FINISH_CODES = ("PG", "DF", "HG", "GR", "ZD", "PL", "SS", "ST", "EA")
+
+
+def _fractional_inches(value: str) -> float:
+    if "-" in value:
+        whole, frac = value.split("-", 1)
+        return float(int(whole) + Fraction(frac))
+    return float(Fraction(value))
+
+
+def _page_text(raw: dict) -> str:
+    return "\n".join(page.get("text", "") for page in raw["extraction"]["records"][0]["pages"])
+
+
+def _parse_identity_fields(text: str) -> dict:
+    match = _HEADER_RE.search(text)
+    if not match:
+        raise ValueError("could not parse P1000 identity header from extracted PDF text")
+
+    width = _fractional_inches(match.group("width"))
+    height = _fractional_inches(match.group("height"))
+    return {
+        "id": match.group("id").upper(),
+        "family": f"{match.group('width')} x {match.group('height')}",
+        "gauge": int(match.group("gauge")),
+        "width_in": width,
+        "height_in": height,
+        "form": match.group("form").lower(),
+    }
+
+
+def _parse_standard_lengths(text: str) -> dict:
+    matches = list(_LENGTH_RE.finditer(text))
+    if not matches:
+        raise ValueError("could not parse standard lengths from extracted PDF text")
+    return {
+        "ft": [float(match.group("ft")) for match in matches],
+        "m": [float(match.group("m")) for match in matches],
+    }
+
+
+def _parse_finish_codes(text: str) -> list[str]:
+    return [code for code in _FINISH_CODES if re.search(rf"\({code}\)", text)]
+
 
 def normalize_p1000_raw(raw: dict) -> dict:
     """Normalize a raw P1000 PDF record into the canonical profile shape.
 
-    This pass deliberately keeps the reviewed engineering values fixed while
-    provenance is derived from the actual acquired PDF. The next parser pass
-    can replace each fixed field with text/table extraction one field at a time.
+    Identity, nominal dimensions, gauge, standard lengths, and advertised finish
+    codes are parsed from the extracted source text. Engineering values that need
+    table-specific extraction remain reviewed constants for now.
     """
     source = raw["source"]
     record = raw["extraction"]["records"][0]
     if record["id"] != "P1000":
         raise ValueError(f"expected raw record id 'P1000', got {record['id']!r}")
 
+    text = _page_text(raw)
+    identity = _parse_identity_fields(text)
+    lengths = _parse_standard_lengths(text)
+    finishes = _parse_finish_codes(text)
+
     data = deepcopy(_P1000_TEMPLATE)
-    provenance = data["profiles"][0]["provenance"]
+    profile = data["profiles"][0]
+    profile["id"] = identity["id"]
+    profile["family"] = identity["family"]
+    profile["gauge"] = identity["gauge"]
+    profile["geometry"]["width"]["in"] = identity["width_in"]
+    profile["geometry"]["height"]["in"] = identity["height_in"]
+    profile["standard_lengths"] = lengths
+    if finishes:
+        profile["finishes"] = finishes
+
+    provenance = profile["provenance"]
     provenance["source_id"] = source["id"]
     provenance["source_file"] = source["file"]
     provenance["source_sha256"] = source["sha256"]
     provenance["source_pages"] = source["pages_used"]
+    provenance["notes"] = [
+        "Identity, nominal dimensions, gauge, standard lengths, and finish codes parsed from extracted submittal text.",
+        "Thickness, lip return, mass, allowable moment, and additional engineering table values remain reviewed constants pending table extraction.",
+    ]
     return data
 
 
