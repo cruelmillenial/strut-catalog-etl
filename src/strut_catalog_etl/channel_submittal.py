@@ -14,10 +14,12 @@ _HEADER_RE = re.compile(
     r"[x×X]\s*"
     r"(?P<height>\d+(?:[-\s]\d+/\d+)?|\d+/\d+)\s*(?:\"|in\.?|inch(?:es)?)\s*"
     r"[,;:]?\s*(?P<gauge>\d+)\s*(?:ga\.?|gauge)\b"
-    r"(?:\s*[,;:-]?\s*(?P<form_before>Solid|Slotted|Punched|Knockout|KO))?"
-    r"(?:(?!P\d+).){0,120}?"
-    r"(?:\bChannel\b(?:\s*[,;:-]?\s*(?P<form_after>Solid|Slotted|Punched|Knockout|KO))?)?",
+    r"(?:\s*[,;:-]?\s*(?P<form_before>Solid|Slotted|Punched|Knockout|KO))?",
     re.IGNORECASE | re.DOTALL,
+)
+_CHANNEL_FORM_RE = re.compile(
+    r"\bChannel\b\s*[,;:-]?\s*(?P<form>Solid|Slotted|Punched|Knockout|KO)\b",
+    re.IGNORECASE,
 )
 # Anchor on the nominal source label ("10 feet:", "20 feet:") and then capture
 # the first meter value that follows it. The bounded lookahead prevents the
@@ -60,7 +62,16 @@ def parse_identity_fields(text: str) -> dict:
             )
         raise ValueError("could not parse channel identity header from extracted PDF text")
 
-    form = match.group("form_before") or match.group("form_after")
+    form = match.group("form_before")
+    if form is None:
+        # P1000-style layout: the form follows "Channel" after the gauge.
+        # Search only a short tail after the matched header so a later mention
+        # elsewhere in the document cannot overwrite the product header.
+        tail = text[match.end():match.end() + 120]
+        channel_form = _CHANNEL_FORM_RE.search(tail)
+        if channel_form:
+            form = channel_form.group("form")
+
     return {
         "id": match.group("id").upper(),
         "family": f"{match.group('width').replace(' ', '-')} x {match.group('height').replace(' ', '-')}",
