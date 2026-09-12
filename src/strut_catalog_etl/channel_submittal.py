@@ -4,19 +4,19 @@ from __future__ import annotations
 from fractions import Fraction
 import re
 
-# Atkore/Unistrut submittals are not perfectly uniform.  P1000 currently emits
-# e.g. ``P1000 - 1-5/8\" x 1-5/8\", 12 Gauge Channel, Solid`` while other
-# families may omit punctuation, wrap differently, or spell the form on a
-# following line.  Keep this deliberately tolerant while still requiring the
-# identifying part number, two dimensions, gauge, and the word "Channel".
+# Atkore/Unistrut submittals are not perfectly uniform. P1000 places the form
+# after "Channel" ("12 Gauge Channel, Solid") while P4100 places it before the
+# next product token ("14 Gauge, Solid P4100"). Keep this tolerant while still
+# requiring part number, two dimensions, and gauge.
 _HEADER_RE = re.compile(
     r"(?P<id>P\d+)\s*[-–—:]?\s*"
     r"(?P<width>\d+(?:[-\s]\d+/\d+)?|\d+/\d+)\s*(?:\"|in\.?|inch(?:es)?)\s*"
     r"[x×X]\s*"
     r"(?P<height>\d+(?:[-\s]\d+/\d+)?|\d+/\d+)\s*(?:\"|in\.?|inch(?:es)?)\s*"
     r"[,;:]?\s*(?P<gauge>\d+)\s*(?:ga\.?|gauge)\b"
-    r"(?:(?!P\d+).){0,120}?\bChannel\b"
-    r"(?:\s*[,;:-]?\s*(?P<form>Solid|Slotted|Punched|Knockout|KO))?",
+    r"(?:\s*[,;:-]?\s*(?P<form_before>Solid|Slotted|Punched|Knockout|KO))?"
+    r"(?:(?!P\d+).){0,120}?"
+    r"(?:\bChannel\b(?:\s*[,;:-]?\s*(?P<form_after>Solid|Slotted|Punched|Knockout|KO))?)?",
     re.IGNORECASE | re.DOTALL,
 )
 _LENGTH_RE = re.compile(
@@ -44,8 +44,6 @@ def page_text(raw: dict) -> str:
 def parse_identity_fields(text: str) -> dict:
     match = _HEADER_RE.search(text)
     if not match:
-        # Keep the failure useful: pypdf line wrapping/layout is the variable
-        # here, so include a compact P-series excerpt for the next specimen.
         compact = re.sub(r"\s+", " ", text)
         marker = re.search(r"P\d+", compact, re.IGNORECASE)
         if marker:
@@ -57,7 +55,7 @@ def parse_identity_fields(text: str) -> dict:
             )
         raise ValueError("could not parse channel identity header from extracted PDF text")
 
-    form = match.group("form")
+    form = match.group("form_before") or match.group("form_after")
     return {
         "id": match.group("id").upper(),
         "family": f"{match.group('width').replace(' ', '-')} x {match.group('height').replace(' ', '-')}",
