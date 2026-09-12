@@ -19,10 +19,14 @@ _HEADER_RE = re.compile(
     r"(?:\bChannel\b(?:\s*[,;:-]?\s*(?P<form_after>Solid|Slotted|Punched|Knockout|KO))?)?",
     re.IGNORECASE | re.DOTALL,
 )
+# Anchor on the nominal source label ("10 feet:", "20 feet:") and then capture
+# the first meter value that follows it. The bounded lookahead prevents the
+# later tolerance value "(3 mm)" from being mistaken for the metric length.
 _LENGTH_RE = re.compile(
-    r"(?P<ft>\d+)\s*(?:feet|foot|ft\.?|'|’)[^\n\r]{0,180}?"
-    r"\(?\s*(?P<m>\d+(?:\.\d+)?)\s*m\s*\)?",
-    re.IGNORECASE,
+    r"(?P<ft>\d+)\s*(?:feet|foot|ft\.?)\s*:"
+    r"(?:(?!\b\d+\s*(?:feet|foot|ft\.?)\s*:).){0,180}?"
+    r"\(\s*(?P<m>\d+(?:\.\d+)?)\s*m\s*\)",
+    re.IGNORECASE | re.DOTALL,
 )
 _FINISH_CODES = ("PG", "DF", "HG", "GR", "ZD", "PL", "SS", "ST", "EA")
 
