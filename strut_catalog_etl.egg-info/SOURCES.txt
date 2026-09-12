@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+strut_catalog_etl/__init__.py
+strut_catalog_etl.egg-info/PKG-INFO
+strut_catalog_etl.egg-info/SOURCES.txt
+strut_catalog_etl.egg-info/dependency_links.txt
+strut_catalog_etl.egg-info/requires.txt
+strut_catalog_etl.egg-info/top_level.txt
+tests/test_build_snapshot.py
+tests/test_smoke.py

@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: strut-catalog-etl
+Version: 0.0.1
+Summary: ETL and validation tooling for structural channel catalogs
+Author: cruelmillenial
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: jsonschema<5,>=4.23
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8.3; extra == "dev"
+Requires-Dist: ruff<1,>=0.6; extra == "dev"
+Provides-Extra: pdf
+Requires-Dist: pypdf<6,>=5; extra == "pdf"
+
+# strut-catalog-etl
+
+Vendor catalog ingestion, normalization, validation, and release tooling for structural channel systems and related hardware.
+
+This repository is the upstream data pipeline for projects such as `UnistrutWB`. It owns vendor-specific extraction logic, provenance, schemas, validation, and generation of deterministic catalog snapshots. Downstream CAD tools should consume generated artifacts only and should not contain scraping or PDF-parsing logic.
+
+## Initial scope
+
+The first target is the Unistrut general catalog. The initial deliverables are:
+
+- reproducible ingestion from source material;
+- normalized profiles and fittings datasets;
+- explicit provenance for every record;
+- schema validation;
+- deterministic generated JSON suitable for bundling with `UnistrutWB`;
+- tests covering representative channel and fitting families.
+
+## Repository layout
+
+```text
+sources/       source manifests and provenance metadata
+etl/           extraction and transformation code
+schemas/       machine-readable schemas for normalized outputs
+generated/     deterministic release-ready datasets
+tests/         unit and regression tests
+docs/          data contracts, mapping notes, and workflow documentation
+```
+
+## Design rules
+
+1. Vendor-specific source structure must not leak into downstream consumers.
+2. Generated artifacts must be reproducible from pinned inputs and code.
+3. Every normalized record must retain enough provenance to trace it back to source material.
+4. Manual corrections must be explicit, reviewable, and testable.
+5. Generated output must be stable in ordering and formatting so diffs remain meaningful.
+6. `UnistrutWB` consumes released snapshots; it does not run this ETL pipeline at runtime.
+
+## Status
+
+Repository scaffold only. No production parser or schema contract has been declared stable yet.

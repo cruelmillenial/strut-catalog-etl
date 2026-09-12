@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "id": "P1000",
+      "family": "1-5/8 x 1-5/8",
+      "gauge": 12,
+      "geometry": {
+        "width": {
+          "in": 1.625,
+          "mm": 41.3
+        },
+        "height": {
+          "in": 1.625,
+          "mm": 41.3
+        },
+        "thickness": {
+          "in": 0.105,
+          "mm": 2.7
+        },
+        "piercing": {
+          "series": null,
+          "template": null,
+          "overrides": {}
+        },
+        "profile_spec": {
+          "kind": "u_channel_lipped",
+          "t": {
+            "in": 0.105,
+            "mm": 2.7
+          },
+          "lip_return": {
+            "in": 0.375,
+            "mm": 9.5
+          }
+        }
+      },
+      "mass": {
+        "lb_per_ft": 1.9,
+        "kg_per_m": 2.8
+      },
+      "finishes": [
+        "PG",
+        "DF",
+        "HG",
+        "GR",
+        "ZD",
+        "PL",
+        "SS",
+        "ST",
+        "EA"
+      ],
+      "standard_lengths": {
+        "ft": [
+          10.0,
+          20.0
+        ],
+        "m": [
+          3.05,
+          6.11
+        ]
+      },
+      "properties": {
+        "section": {
+          "allowable_moment": {
+            "in_lb": 5080,
+            "N_m": 570
+          }
+        }
+      },
+      "provenance": {
+        "source_id": "P1000_SUBMITTAL",
+        "source_file": "P1000_Submittal.pdf",
+        "source_sha256": "f7603cbacffd9fc83ad805d02f6deed4c076bccdf31d7d85e6abf743324ada4f",
+        "source_pages": [
+          1,
+          2
+        ],
+        "table": "P1000 submittal",
+        "notes": [
+          "Identity, nominal dimensions, gauge, standard lengths, and finish codes parsed from extracted submittal text.",
+          "Thickness, lip return, mass, allowable moment, and additional engineering table values remain reviewed constants pending table extraction."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "source": {
+    "id": "P1000_SUBMITTAL",
+    "file": "P1000_Submittal.pdf",
+    "title": "P1000 Submittal",
+    "sha256": "f7603cbacffd9fc83ad805d02f6deed4c076bccdf31d7d85e6abf743324ada4f",
+    "pages_used": [
+      1,
+      2
+    ]
+  },
+  "extraction": {
+    "method": "pypdf_text",
+    "status": "draft",
+    "records": [
+      {
+        "id": "P1000",
+        "page": 1,
+        "pages": [
+          {
+            "page": 1,
+            "text": "www.atkore.com\nASTM\nApplicable Third Party Standards\n\u2022 OPM pre-approved for seismic applications\n\u2022 UL and CSA listed for use as a Strut-Type Channel\nRaceway\n\u2022 Punched holes are also available for ease of installation\n\u2022 Available in Pre-Galvanized (PG), Atkore Defender\n(DF), Hot-Dip Galvanized (HG), Plain (PL), Green (GR),\nGold (ZD), Stainless Steel (SS or ST) and Aluminum (EA)\n\u2022 Made in the USA\nFeatures\nP1000 - 1-5/8\" x 1-5/8\", 12 Gauge\nChannel, Solid\nP1000\nUnistrut's P1000 is the original metal framing strut channeland has been used in countless applications for nearly 100years. Commonly known as 12 Gauge Standard or DeepStrut Channel, it is the global standard for strut metalframing. This channel is commonly used for trapezesupports, seismic bracing, ceiling grids, pipe, conduit, ductand cable tray supports, racks, and other general framing.For application examples, refer to our Unistrut ApplicationShowcase.\n* These materials have different physical properties and performance characteristics. Please contact us for design support.\n\u2022 Stainless Steel, Type 304 (SS): ASTM A240, Type 304 *\n\u2022 Stainless Steel, Type 316 (ST): ASTM A240, Type 316 *\n\u2022 Aluminum (EA): ASTM B221, Type 6063-T6 (Extruded) *\nMaterials & Finishes - Special Metals:\n\u2022 Pregalvanized (PG): Conforms to ASTM A653 SS GR 33, G90.\n\u2022 Unistrut Defender (DF): Conforms to ASTM A1046 SS GR 33\n\u2022 Hot Dip Galvanized (HG): Steel conforms to ASTM A1011 SS GR 33, Finish conforms to ASTM A123\n\u2022 Perma-Green (GR): Steel conforms to ASTM A1011 SS GR 33, E-Coat finish\n\u2022 Perma-Gold (ZD): Steel conforms to ASTM A1011 SS GR 33, Finish conforms to ASTM B633, Type II SC3\n\u2022 Plain (PL): Conforms to ASTM A1011 SS GR 33\nMaterials & Finishes - Standard:\n\u2022 All beam and column load data pertains to carbon steel and stainless steel channels.\n\u2022 Load tables apply only to UNISTRUT brand channel. Look for \"UNISTRUT\" on the product.\n\u2022 Load tables and charts are constructed to be in accordance with the SPECIFICATION FOR THE DESIGN OF COLD-\nFORMED STEEL STRUCTURAL MEMBERS 2007 EDITION published by the AMERICAN IRON AND STEEL INSTITUTE USING\nASD METHOD.\n\u2022 Loads are based on 33 ksi steel cold formed to 42 ksi.\n\u2022 Safety Factor to Yield Strength is 1.67 for Beam Loads and 1.80 for Column Loads.\n\u2022 Beam loads are based on a simple beam and are given as a total uniform load (W) in pounds. For proper calculation\nprocedures, refer to our Beam Load Calculation Guide under Resources.\n\u2022 For bearing loads, reference our Bearing Loads Page.\nLoad Data:\n\u2022 Many Unistrut channel sections can be supplied with a curve. Click here for our ordering form, specifications, and instructions.\nCurved Channel:\n\u2022 Available with a tolerance of \u00b11 /8 \" (3 mm). Request quote.\nSpecial Lengths:\n\u2022 10 feet: 10' or 10\u2019 1 /8 \u201d (3.05m) \u00b1 1 /8 \" (3 mm)\n\u2022 20 feet: 20' or 20\u2019 3 /8 \u201d (6.11m) \u00b1 1 /8 \" (3 mm)\nStandard Lengths:"
+          },
+          {
+            "page": 2,
+            "text": "www.atkore.com\nP1000\nRefer to the General Specifications for loading information.\nRefer to the General Specifications for loading information."
+          }
+        ]
+      }
+    ]
+  }
+}

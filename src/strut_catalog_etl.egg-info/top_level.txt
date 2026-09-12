@@ -1,0 +1,1 @@
+strut_catalog_etl
