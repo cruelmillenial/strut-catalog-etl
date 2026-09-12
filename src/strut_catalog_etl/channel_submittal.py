@@ -20,7 +20,8 @@ _HEADER_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 _LENGTH_RE = re.compile(
-    r"(?P<ft>\d+)\s*feet\s*:.*?\((?P<m>\d+(?:\.\d+)?)m\)",
+    r"(?P<ft>\d+)\s*(?:feet|foot|ft\.?|'|’)[^\n\r]{0,180}?"
+    r"\(?\s*(?P<m>\d+(?:\.\d+)?)\s*m\s*\)?",
     re.IGNORECASE,
 )
 _FINISH_CODES = ("PG", "DF", "HG", "GR", "ZD", "PL", "SS", "ST", "EA")
@@ -69,6 +70,15 @@ def parse_identity_fields(text: str) -> dict:
 def parse_standard_lengths(text: str) -> dict:
     matches = list(_LENGTH_RE.finditer(text))
     if not matches:
+        compact = re.sub(r"\s+", " ", text)
+        marker = re.search(r"Standard Lengths|Special Lengths|\b10\s*(?:feet|ft\.?|'|’)\b", compact, re.IGNORECASE)
+        if marker:
+            start = max(0, marker.start() - 120)
+            excerpt = compact[start:start + 520]
+            raise ValueError(
+                "could not parse standard lengths from extracted PDF text; "
+                f"near length section: {excerpt!r}"
+            )
         raise ValueError("could not parse standard lengths from extracted PDF text")
     return {
         "ft": [float(match.group("ft")) for match in matches],
