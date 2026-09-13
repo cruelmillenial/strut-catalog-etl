@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 
 from .pdf_source import build_raw_pdf_record
+from .reviewed_sections import load_reviewed_section_properties
 
 
 _P1000_TEMPLATE = {
@@ -109,8 +110,8 @@ def normalize_p1000_raw(raw: dict) -> dict:
     """Normalize a raw P1000 PDF record into the canonical profile shape.
 
     Identity, nominal dimensions, gauge, standard lengths, and advertised finish
-    codes are parsed from the extracted source text. Engineering values that need
-    table-specific extraction remain reviewed constants for now.
+    codes are parsed from the extracted source text. Section properties are loaded
+    from the explicitly reviewed page-2 table because pypdf omits that table text.
     """
     source = raw["source"]
     record = raw["extraction"]["records"][0]
@@ -133,6 +134,8 @@ def normalize_p1000_raw(raw: dict) -> dict:
     if finishes:
         profile["finishes"] = finishes
 
+    profile.setdefault("properties", {})["section"] = load_reviewed_section_properties(identity["id"])
+
     provenance = profile["provenance"]
     provenance["source_id"] = source["id"]
     provenance["source_file"] = source["file"]
@@ -140,7 +143,8 @@ def normalize_p1000_raw(raw: dict) -> dict:
     provenance["source_pages"] = source["pages_used"]
     provenance["notes"] = [
         "Identity, nominal dimensions, gauge, standard lengths, and finish codes parsed from extracted submittal text.",
-        "Thickness, lip return, mass, allowable moment, and additional engineering table values remain reviewed constants pending table extraction.",
+        "Section properties transcribed from the reviewed page-2 Elements of Section table because pypdf omits the tabular text.",
+        "Thickness, lip return, mass, allowable moment, and load tables remain reviewed/deferred pending dedicated extraction.",
     ]
     return data
 
