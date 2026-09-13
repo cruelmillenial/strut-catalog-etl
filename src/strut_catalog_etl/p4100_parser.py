@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .channel_submittal import page_text, parse_finish_codes, parse_identity_fields, parse_standard_lengths
 from .pdf_source import build_raw_pdf_record
+from .reviewed_sections import load_reviewed_section_properties
 
 
 def inspect_p4100_raw(raw: dict) -> dict:
@@ -28,8 +29,8 @@ def inspect_p4100_raw(raw: dict) -> dict:
 def normalize_p4100_raw(raw: dict) -> dict:
     """Normalize source-parsed P4100 fields into the canonical profile schema.
 
-    Only values proven by the current shared text parser are populated. Engineering
-    properties that require table-specific extraction remain intentionally absent.
+    Text fields come directly from the extracted PDF text. Section properties come
+    from the explicitly reviewed page-2 table because pypdf omits that table text.
     """
     parsed = inspect_p4100_raw(raw)
     identity = parsed["identity"]
@@ -52,6 +53,9 @@ def normalize_p4100_raw(raw: dict) -> dict:
                 },
                 "finishes": parsed["finishes"],
                 "standard_lengths": parsed["standard_lengths"],
+                "properties": {
+                    "section": load_reviewed_section_properties(identity["id"]),
+                },
                 "provenance": {
                     "source_id": source["id"],
                     "source_file": source["file"],
@@ -60,7 +64,8 @@ def normalize_p4100_raw(raw: dict) -> dict:
                     "table": "P4100 submittal",
                     "notes": [
                         "Identity, nominal dimensions, gauge, form, standard lengths, and finish codes parsed from extracted submittal text.",
-                        "Thickness, lip return, mass, section properties, and load tables are deferred pending table-specific extraction.",
+                        "Section properties transcribed from the reviewed page-2 Elements of Section table because pypdf omits the tabular text.",
+                        "Thickness, lip return, mass, and load tables remain deferred.",
                     ],
                 },
             }
