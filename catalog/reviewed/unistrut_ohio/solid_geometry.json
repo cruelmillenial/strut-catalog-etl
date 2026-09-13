@@ -1,22 +1,32 @@
 {
   "schema_version": 1,
-  "source": "Unistrut Ohio submittals and reviewed legacy catalog values",
+  "source": "Unistrut engineering catalog reviewed dimensional drawings and material tables",
   "profiles": {
     "P1000": {
       "kind": "u_channel_lipped",
-      "width": {"in": 1.625, "mm": 41.3},
-      "height": {"in": 1.625, "mm": 41.3},
-      "thickness": {"in": 0.105, "mm": 2.7, "status": "reviewed_legacy"},
-      "lip_return": {"in": 0.375, "mm": 9.5, "status": "reviewed_legacy"},
-      "inside_bend_radius": {"in": null, "mm": null, "status": "not_yet_sourced"}
+      "width": {"in": 1.625, "mm": 41.3, "status": "source_locked"},
+      "height": {"in": 1.625, "mm": 41.3, "status": "source_locked"},
+      "thickness": {"in": 0.105, "mm": 2.7, "status": "source_locked"},
+      "lip_return": {"in": 0.375, "mm": 9.5, "status": "source_locked"},
+      "inside_bend_radius": {"in": null, "mm": null, "status": "not_specified_in_reviewed_sources"},
+      "provenance": {
+        "thickness": "C_p1000.pdf page 23: nominal thickness of 12 gage strip steel is .105 in (2.7 mm)",
+        "lip_return": "C_p1000.pdf page 23 dimensional drawing: 3/8 in (9.5 mm) lip return",
+        "bend_radius": "No explicit inside bend radius found in reviewed P1000 engineering-catalog sources"
+      }
     },
     "P4100": {
       "kind": "u_channel_lipped",
-      "width": {"in": 1.625, "mm": 41.3},
-      "height": {"in": 0.8125, "mm": 20.6},
-      "thickness": {"in": null, "mm": null, "status": "not_yet_sourced"},
-      "lip_return": {"in": null, "mm": null, "status": "not_yet_sourced"},
-      "inside_bend_radius": {"in": null, "mm": null, "status": "not_yet_sourced"}
+      "width": {"in": 1.625, "mm": 41.3, "status": "source_locked"},
+      "height": {"in": 0.8125, "mm": 20.6, "status": "source_locked"},
+      "thickness": {"in": 0.075, "mm": 1.9, "status": "source_locked"},
+      "lip_return": {"in": 0.375, "mm": 9.5, "status": "source_locked"},
+      "inside_bend_radius": {"in": null, "mm": null, "status": "not_specified_in_reviewed_sources"},
+      "provenance": {
+        "thickness": "Unistrut channel selection/material tables identify P4100 as 14 gage; 14 gage steel is 1.9 mm and pierced P4100 tables list .075 in",
+        "lip_return": "General engineering catalog P4100 dimensional drawing shows the same 3/8 in (9.5 mm) inward lip return used by the 1-5/8 in channel family",
+        "bend_radius": "No explicit inside bend radius found in reviewed P4100 engineering-catalog sources"
+      }
     }
   }
 }
