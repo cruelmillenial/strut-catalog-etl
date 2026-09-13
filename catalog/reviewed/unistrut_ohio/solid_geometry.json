@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "Unistrut Ohio submittals and reviewed legacy catalog values",
+  "profiles": {
+    "P1000": {
+      "kind": "u_channel_lipped",
+      "width": {"in": 1.625, "mm": 41.3},
+      "height": {"in": 1.625, "mm": 41.3},
+      "thickness": {"in": 0.105, "mm": 2.7, "status": "reviewed_legacy"},
+      "lip_return": {"in": 0.375, "mm": 9.5, "status": "reviewed_legacy"},
+      "inside_bend_radius": {"in": null, "mm": null, "status": "not_yet_sourced"}
+    },
+    "P4100": {
+      "kind": "u_channel_lipped",
+      "width": {"in": 1.625, "mm": 41.3},
+      "height": {"in": 0.8125, "mm": 20.6},
+      "thickness": {"in": null, "mm": null, "status": "not_yet_sourced"},
+      "lip_return": {"in": null, "mm": null, "status": "not_yet_sourced"},
+      "inside_bend_radius": {"in": null, "mm": null, "status": "not_yet_sourced"}
+    }
+  }
+}
