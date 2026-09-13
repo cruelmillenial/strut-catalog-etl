@@ -7,6 +7,7 @@ from pathlib import Path
 
 DEFAULT_PATH = Path("catalog/reviewed/unistrut_ohio/solid_geometry.json")
 _REQUIRED_KEYS = ("kind", "width", "height", "thickness", "lip_return", "inside_bend_radius")
+_SOURCE_REQUIRED_KEYS = ("thickness", "lip_return")
 
 
 def load_solid_geometry(path: Path = DEFAULT_PATH) -> dict:
@@ -32,8 +33,46 @@ def solid_geometry_for(profile_id: str, path: Path = DEFAULT_PATH) -> dict:
         raise KeyError(f"no reviewed solid geometry for {profile_id}") from exc
 
 
+def source_geometry_complete(profile_id: str, path: Path = DEFAULT_PATH) -> tuple[bool, list[str]]:
+    """Return whether all manufacturer/source-required section dimensions are present.
+
+    Bend radius is intentionally excluded. The reviewed Unistrut sources do not
+    specify it, so the generator must supply an explicit modeling policy rather
+    than treating an assumed radius as manufacturer data.
+    """
+    record = solid_geometry_for(profile_id, path)
+    missing: list[str] = []
+    for key in _SOURCE_REQUIRED_KEYS:
+        value = record[key]
+        if value.get("in") is None or value.get("mm") is None:
+            missing.append(key)
+    return (not missing, missing)
+
+
+def model_geometry_ready(
+    profile_id: str,
+    *,
+    bend_policy_available: bool,
+    path: Path = DEFAULT_PATH,
+) -> tuple[bool, list[str]]:
+    """Return whether FreeCAD has enough information to build the MVP solid.
+
+    Source geometry must be complete, and the generator must explicitly provide
+    a bend-radius policy. The policy is deliberately kept outside the reviewed
+    manufacturer data because the reviewed sources do not specify bend radius.
+    """
+    ready, missing = source_geometry_complete(profile_id, path)
+    if not bend_policy_available:
+        missing = [*missing, "bend_policy"]
+    return (ready and bend_policy_available, missing)
+
+
 def geometry_ready_for_accurate_solid(profile_id: str, path: Path = DEFAULT_PATH) -> tuple[bool, list[str]]:
-    """Return whether all dimensions required for an accurate solid are sourced."""
+    """Backward-compatible strict provenance check.
+
+    This retains the old meaning: every geometric dimension, including bend
+    radius, must be explicitly present in the reviewed source record.
+    """
     record = solid_geometry_for(profile_id, path)
     missing: list[str] = []
     for key in ("thickness", "lip_return", "inside_bend_radius"):
