@@ -42,12 +42,18 @@ def test_p1000_symmetric_lip_derivation_matches_catalog_dimensions():
     assert derived["status"] == "derived_model_hypothesis"
 
 
-def test_p4100_solid_geometry_contract_tracks_only_bend_radius_gap():
+def test_p4100_solid_geometry_contract_tracks_reviewed_secondary_lip_dimensions():
     geometry = solid_geometry_for("P4100")
     assert geometry["width"]["in"] == 1.625
     assert geometry["height"]["in"] == 0.8125
     assert geometry["thickness"]["in"] == 0.075
     assert geometry["lip_return"]["in"] == 0.375
+    assert geometry["mouth_opening"]["in"] == 0.875
+    assert geometry["mouth_opening"]["status"] == "reviewed_secondary_source"
+    assert geometry["lip_tip_gap"]["in"] == 0.25
+    assert geometry["lip_tip_gap"]["status"] == "reviewed_secondary_source"
+    assert geometry["centroid_axis_from_bottom"]["in"] == 0.333
+    assert geometry["centroid_axis_from_top"]["in"] == 0.480
     assert geometry["inside_bend_radius"]["status"] == "not_specified_in_reviewed_sources"
 
     source_ready, source_missing = source_geometry_complete("P4100")
@@ -63,6 +69,19 @@ def test_p4100_solid_geometry_contract_tracks_only_bend_radius_gap():
     assert strict_missing == ["inside_bend_radius"]
 
 
-def test_p4100_lip_derivation_waits_for_source_dimensions():
-    with pytest.raises(ValueError, match="missing source dimensions"):
-        derive_symmetric_lip_geometry("P4100")
+def test_p4100_symmetric_lip_derivation_matches_reviewed_dimensions():
+    derived = derive_symmetric_lip_geometry("P4100")
+    assert derived["side_projection_in"] == pytest.approx(0.375)
+    assert derived["tip_projection_in"] == pytest.approx(0.3125)
+    assert derived["candidate_semicircular_lip_radius_in"] == pytest.approx(0.15625)
+    assert derived["model"] == "symmetric_semicircular_lip"
+    assert derived["status"] == "derived_model_hypothesis"
+
+
+def test_p4100_centroid_axis_dimensions_close_height_with_rounding():
+    geometry = solid_geometry_for("P4100")
+    summed = (
+        geometry["centroid_axis_from_bottom"]["in"]
+        + geometry["centroid_axis_from_top"]["in"]
+    )
+    assert summed == pytest.approx(geometry["height"]["in"], abs=0.001)
