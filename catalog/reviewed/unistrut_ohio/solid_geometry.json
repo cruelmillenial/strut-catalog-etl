@@ -25,14 +25,17 @@
       "height": {"in": 0.8125, "mm": 20.6, "status": "source_locked"},
       "thickness": {"in": 0.075, "mm": 1.9, "status": "source_locked"},
       "lip_return": {"in": 0.375, "mm": 9.5, "status": "source_locked"},
-      "mouth_opening": {"in": null, "mm": null, "status": "not_yet_sourced"},
-      "lip_tip_gap": {"in": null, "mm": null, "status": "not_yet_sourced"},
+      "mouth_opening": {"in": 0.875, "mm": 22.2, "status": "reviewed_secondary_source"},
+      "lip_tip_gap": {"in": 0.25, "mm": 6.35, "status": "reviewed_secondary_source"},
+      "centroid_axis_from_bottom": {"in": 0.333, "mm": 8.46, "status": "reviewed_secondary_source"},
+      "centroid_axis_from_top": {"in": 0.480, "mm": 12.19, "status": "reviewed_secondary_source"},
       "inside_bend_radius": {"in": null, "mm": null, "status": "not_specified_in_reviewed_sources"},
       "provenance": {
         "thickness": "Unistrut channel selection/material tables identify P4100 as 14 gage; 14 gage steel is 1.9 mm and pierced P4100 tables list .075 in",
         "lip_return": "General engineering catalog P4100 dimensional drawing shows the same 3/8 in (9.5 mm) inward lip return used by the 1-5/8 in channel family",
-        "mouth_opening": "Not yet source-locked for P4100",
-        "lip_tip_gap": "Not yet source-locked for P4100",
+        "mouth_opening": "Reviewed secondary dimensional drawing supplied 2026-09-17; original upstream manufacturer provenance not yet recovered. Drawing labels 7/8 in mouth opening.",
+        "lip_tip_gap": "Reviewed secondary dimensional drawing supplied 2026-09-17; original upstream manufacturer provenance not yet recovered. Drawing labels 1/4 in lip-tip gap.",
+        "centroid_axis": "Reviewed secondary dimensional drawing supplied 2026-09-17; drawing labels .333 in from bottom and .480 in from top. Retained as validation evidence, not geometry input.",
         "bend_radius": "No explicit inside bend radius found in reviewed P4100 engineering-catalog sources"
       }
     }
