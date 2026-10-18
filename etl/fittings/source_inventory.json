@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "source": "Unistrut Ohio submittal manifest",
+  "record_status": "source_inventory_only",
+  "records": [
+    {
+      "id": "P1065",
+      "source_category": "Fittings",
+      "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1065.pdf?v=1685673458",
+      "source_manifest_path": "sources/unistrut_ohio/submittals.json",
+      "source_manifest_label": "P1065",
+      "extraction_status": "pending",
+      "verification_status": "unverified",
+      "geometry_family": null,
+      "dimensions": null,
+      "hole_pattern": null,
+      "notes": [
+        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
+      ]
+    },
+    {
+      "id": "P1066",
+      "source_category": "Fittings",
+      "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1066.pdf?v=1685673260",
+      "source_manifest_path": "sources/unistrut_ohio/submittals.json",
+      "source_manifest_label": "P1066",
+      "extraction_status": "pending",
+      "verification_status": "unverified",
+      "geometry_family": null,
+      "dimensions": null,
+      "hole_pattern": null,
+      "notes": [
+        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
+      ]
+    },
+    {
+      "id": "P1067",
+      "source_category": "Fittings",
+      "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1067.pdf?v=1685669146",
+      "source_manifest_path": "sources/unistrut_ohio/submittals.json",
+      "source_manifest_label": "P1067",
+      "extraction_status": "pending",
+      "verification_status": "unverified",
+      "geometry_family": null,
+      "dimensions": null,
+      "hole_pattern": null,
+      "notes": [
+        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
+      ]
+    },
+    {
+      "id": "P1068",
+      "source_category": "Fittings",
+      "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1068.pdf?v=1685668855",
+      "source_manifest_path": "sources/unistrut_ohio/submittals.json",
+      "source_manifest_label": "P1068",
+      "extraction_status": "pending",
+      "verification_status": "unverified",
+      "geometry_family": null,
+      "dimensions": null,
+      "hole_pattern": null,
+      "notes": [
+        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
+      ]
+    }
+  ]
+}
