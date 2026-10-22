@@ -17,14 +17,30 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
+        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
       ],
       "source_sha256": "1770b1f470366444a5516882b368f58a9d024f6505b2c34ac5fb12969b7ac1a9",
       "source_pages": [
         1
       ],
       "visible_hole_count": 2,
-      "catalog_weight_lb_per_piece_eg": 0.38
+      "catalog_weight_lb_per_piece_eg": 0.38,
+      "drawing_callouts": [
+        {
+          "feature": "overall_length",
+          "inches_fraction": "3 1/2",
+          "manufacturer_rounded_mm": 89,
+          "provenance": "manufacturer_drawing",
+          "source_page": 1
+        }
+      ],
+      "geometry_gaps": [
+        "material thickness",
+        "hole diameter",
+        "hole-center coordinates",
+        "plate width"
+      ]
     },
     {
       "id": "P1066",
@@ -40,14 +56,30 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
+        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
       ],
       "source_sha256": "da529d22b03d23d432bb8ac7886418aabecf9c12cbb9c60e8492290d69e56d81",
       "source_pages": [
         1
       ],
       "visible_hole_count": 3,
-      "catalog_weight_lb_per_piece_eg": 0.56
+      "catalog_weight_lb_per_piece_eg": 0.56,
+      "drawing_callouts": [
+        {
+          "feature": "overall_length",
+          "inches_fraction": "5 3/8",
+          "manufacturer_rounded_mm": 137,
+          "provenance": "manufacturer_drawing",
+          "source_page": 1
+        }
+      ],
+      "geometry_gaps": [
+        "material thickness",
+        "hole diameter",
+        "hole-center coordinates",
+        "plate width"
+      ]
     },
     {
       "id": "P1067",
@@ -63,14 +95,30 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
+        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
       ],
       "source_sha256": "994b063a71be828aa4d40cabbe88198e4f00affe19ef1341477af76c8be1be08",
       "source_pages": [
         1
       ],
       "visible_hole_count": 4,
-      "catalog_weight_lb_per_piece_eg": 0.78
+      "catalog_weight_lb_per_piece_eg": 0.78,
+      "drawing_callouts": [
+        {
+          "feature": "overall_length",
+          "inches_fraction": "7 1/4",
+          "manufacturer_rounded_mm": 184,
+          "provenance": "manufacturer_drawing",
+          "source_page": 1
+        }
+      ],
+      "geometry_gaps": [
+        "material thickness",
+        "hole diameter",
+        "hole-center coordinates",
+        "plate width"
+      ]
     },
     {
       "id": "P1068",
@@ -86,14 +134,38 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
+        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
       ],
       "source_sha256": "82d080c6f3b1d15207faff6a12c183c5f5f29ed813a29bedb072209c65592c0a",
       "source_pages": [
         1
       ],
       "visible_hole_count": 2,
-      "catalog_weight_lb_per_piece_eg": 0.38
+      "catalog_weight_lb_per_piece_eg": 0.38,
+      "drawing_callouts": [
+        {
+          "feature": "illustrated_dimension_1",
+          "inches_fraction": "1 5/8",
+          "manufacturer_rounded_mm": 41,
+          "provenance": "manufacturer_drawing",
+          "source_page": 1
+        },
+        {
+          "feature": "illustrated_dimension_2",
+          "inches_fraction": "2 1/4",
+          "manufacturer_rounded_mm": 57,
+          "provenance": "manufacturer_drawing",
+          "source_page": 1
+        }
+      ],
+      "geometry_gaps": [
+        "material thickness",
+        "hole diameter",
+        "hole-center coordinates",
+        "bend/offset geometry",
+        "precise dimension datum interpretation"
+      ]
     }
   ]
 }
