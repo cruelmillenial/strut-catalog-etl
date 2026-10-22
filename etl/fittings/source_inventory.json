@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "Unistrut Ohio submittal manifest",
-  "record_status": "source_inventory_only",
+  "record_status": "inspected_candidate_only",
   "records": [
     {
       "id": "P1065",
@@ -9,14 +9,22 @@
       "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1065.pdf?v=1685673458",
       "source_manifest_path": "sources/unistrut_ohio/submittals.json",
       "source_manifest_label": "P1065",
-      "extraction_status": "pending",
-      "verification_status": "unverified",
-      "geometry_family": null,
+      "extraction_status": "inspected",
+      "verification_status": "reviewed",
+      "geometry_family": "flat_splice_plate",
       "dimensions": null,
       "hole_pattern": null,
       "notes": [
-        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
-      ]
+        "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
+        "EG per-piece weight transcribed from page 1 table.",
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+      ],
+      "source_sha256": "1770b1f470366444a5516882b368f58a9d024f6505b2c34ac5fb12969b7ac1a9",
+      "source_pages": [
+        1
+      ],
+      "visible_hole_count": 2,
+      "catalog_weight_lb_per_piece_eg": 0.38
     },
     {
       "id": "P1066",
@@ -24,14 +32,22 @@
       "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1066.pdf?v=1685673260",
       "source_manifest_path": "sources/unistrut_ohio/submittals.json",
       "source_manifest_label": "P1066",
-      "extraction_status": "pending",
-      "verification_status": "unverified",
-      "geometry_family": null,
+      "extraction_status": "inspected",
+      "verification_status": "reviewed",
+      "geometry_family": "flat_splice_plate",
       "dimensions": null,
       "hole_pattern": null,
       "notes": [
-        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
-      ]
+        "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
+        "EG per-piece weight transcribed from page 1 table.",
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+      ],
+      "source_sha256": "da529d22b03d23d432bb8ac7886418aabecf9c12cbb9c60e8492290d69e56d81",
+      "source_pages": [
+        1
+      ],
+      "visible_hole_count": 3,
+      "catalog_weight_lb_per_piece_eg": 0.56
     },
     {
       "id": "P1067",
@@ -39,14 +55,22 @@
       "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1067.pdf?v=1685669146",
       "source_manifest_path": "sources/unistrut_ohio/submittals.json",
       "source_manifest_label": "P1067",
-      "extraction_status": "pending",
-      "verification_status": "unverified",
-      "geometry_family": null,
+      "extraction_status": "inspected",
+      "verification_status": "reviewed",
+      "geometry_family": "flat_splice_plate",
       "dimensions": null,
       "hole_pattern": null,
       "notes": [
-        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
-      ]
+        "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
+        "EG per-piece weight transcribed from page 1 table.",
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+      ],
+      "source_sha256": "994b063a71be828aa4d40cabbe88198e4f00affe19ef1341477af76c8be1be08",
+      "source_pages": [
+        1
+      ],
+      "visible_hole_count": 4,
+      "catalog_weight_lb_per_piece_eg": 0.78
     },
     {
       "id": "P1068",
@@ -54,14 +78,22 @@
       "source_document_url": "https://cdn.shopify.com/s/files/1/0614/5546/6701/files/P1068.pdf?v=1685668855",
       "source_manifest_path": "sources/unistrut_ohio/submittals.json",
       "source_manifest_label": "P1068",
-      "extraction_status": "pending",
-      "verification_status": "unverified",
-      "geometry_family": null,
+      "extraction_status": "inspected",
+      "verification_status": "reviewed",
+      "geometry_family": "right_angle_connection_fitting",
       "dimensions": null,
       "hole_pattern": null,
       "notes": [
-        "Catalog part classification and geometry must be verified against the actual submittal before normalization."
-      ]
+        "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
+        "EG per-piece weight transcribed from page 1 table.",
+        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry."
+      ],
+      "source_sha256": "82d080c6f3b1d15207faff6a12c183c5f5f29ed813a29bedb072209c65592c0a",
+      "source_pages": [
+        1
+      ],
+      "visible_hole_count": 2,
+      "catalog_weight_lb_per_piece_eg": 0.38
     }
   ]
 }
