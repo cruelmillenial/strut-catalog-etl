@@ -17,8 +17,7 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
-        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
+        "Family rule sourced directly from printed catalog page 81 (separate from P1065 submittal); provisional geometry derived by explicit opt-in. Not a verified release geometry."
       ],
       "source_sha256": "1770b1f470366444a5516882b368f58a9d024f6505b2c34ac5fb12969b7ac1a9",
       "source_pages": [
@@ -36,11 +35,17 @@
         }
       ],
       "geometry_gaps": [
-        "material thickness",
-        "hole diameter",
-        "hole-center coordinates",
-        "plate width"
-      ]
+        "transverse hole centerline not explicitly dimensioned",
+        "corner radius and shape not dimensioned",
+        "thickness is conditional on steel grade; actual SKU material must be established",
+        "manufacturing tolerances not established"
+      ],
+      "reference_geometry": {
+        "path": "etl/fittings/flat_plate_reference.json",
+        "printed_page": 81,
+        "status": "provisional_with_transverse_centerline_inference",
+        "release_eligible": false
+      }
     },
     {
       "id": "P1066",
@@ -56,8 +61,7 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
-        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
+        "Family rule sourced directly from printed catalog page 81 (separate from P1065 submittal); provisional geometry derived by explicit opt-in. Not a verified release geometry."
       ],
       "source_sha256": "da529d22b03d23d432bb8ac7886418aabecf9c12cbb9c60e8492290d69e56d81",
       "source_pages": [
@@ -75,11 +79,17 @@
         }
       ],
       "geometry_gaps": [
-        "material thickness",
-        "hole diameter",
-        "hole-center coordinates",
-        "plate width"
-      ]
+        "transverse hole centerline not explicitly dimensioned",
+        "corner radius and shape not dimensioned",
+        "thickness is conditional on steel grade; actual SKU material must be established",
+        "manufacturing tolerances not established"
+      ],
+      "reference_geometry": {
+        "path": "etl/fittings/flat_plate_reference.json",
+        "printed_page": 81,
+        "status": "provisional_with_transverse_centerline_inference",
+        "release_eligible": false
+      }
     },
     {
       "id": "P1067",
@@ -95,8 +105,7 @@
       "notes": [
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
-        "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
-        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
+        "Family rule sourced directly from printed catalog page 81 (separate from P1065 submittal); provisional geometry derived by explicit opt-in. Not a verified release geometry."
       ],
       "source_sha256": "994b063a71be828aa4d40cabbe88198e4f00affe19ef1341477af76c8be1be08",
       "source_pages": [
@@ -114,11 +123,17 @@
         }
       ],
       "geometry_gaps": [
-        "material thickness",
-        "hole diameter",
-        "hole-center coordinates",
-        "plate width"
-      ]
+        "transverse hole centerline not explicitly dimensioned",
+        "corner radius and shape not dimensioned",
+        "thickness is conditional on steel grade; actual SKU material must be established",
+        "manufacturing tolerances not established"
+      ],
+      "reference_geometry": {
+        "path": "etl/fittings/flat_plate_reference.json",
+        "printed_page": 81,
+        "status": "provisional_with_transverse_centerline_inference",
+        "release_eligible": false
+      }
     },
     {
       "id": "P1068",
@@ -135,7 +150,7 @@
         "Classification and visible hole count reviewed from page 1 illustrations of the uploaded manufacturer PDF.",
         "EG per-piece weight transcribed from page 1 table.",
         "Manufacturing-complete hole geometry, plate thickness and coordinates not verified; do not promote to release geometry.",
-        "Drawing callouts captured separately; do not infer complete dimensions or hole pattern from illustration. For P1068 dimension datums require further verification."
+        "Dimension datums and bend geometry need independent verification."
       ],
       "source_sha256": "82d080c6f3b1d15207faff6a12c183c5f5f29ed813a29bedb072209c65592c0a",
       "source_pages": [
