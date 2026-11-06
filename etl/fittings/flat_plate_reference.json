@@ -7,7 +7,13 @@
     "printed_page": 81,
     "pdf_page": 81,
     "context": "Flat Plate Fittings — 1-5/8 in framing series",
-    "note": "Catalog page 81 examined directly; separate from ChannelStrut citing General Engineering Catalog No.17 p90. Catalog edition designation not yet positively identified from this PDF."
+    "note": "Catalog source: provided PDF, SHA-256 verified locally, printed p.81 = 1-based PDF page 81. Manufacturer catalog edition not positively identified; do not substitute ChannelStrut's cited No.17 page 90.",
+    "sha256": "afd2d2d6c9bbf7825848ce137f0a283d553f40431658ae551494f9ed21a84945",
+    "pdf_metadata": {
+      "creator": "Adobe InDesign CS5.5 (7.5.3)",
+      "creation_date": "2013-09-23",
+      "modified_date": "2016-04-15"
+    }
   },
   "standard_dimensions": {
     "applicability": "1-5/8 in width series channel fittings unless otherwise shown on individual drawing",
