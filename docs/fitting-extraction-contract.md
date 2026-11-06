@@ -1,6 +1,6 @@
 # Fitting submittal extraction and geometry contract (draft)
 
-The manufacturer submittals for P1065–P1068 have been inspected (page 1 each), with their SHA-256 digests and visible drawing callouts recorded in `etl/fittings/source_inventory.json`. They are **candidate inventory records**, not fully dimensioned CAD definitions. The PDFs themselves are not committed to this repository. In particular, no manufacturer-exact hole diameter or center array has been established.
+The manufacturer submittals for P1065–P1068 have been inspected (page 1 each), with their SHA-256 digests and visible drawing callouts recorded in `etl/fittings/source_inventory.json`. They are **candidate inventory records**, not fully dimensioned CAD definitions. The PDFs themselves are not committed to this repository. A directly inspected manufacturer catalog has subsequently supplied nominal family dimensions for P1065–P1067. Those reference dimensions are represented separately; the inventoried candidates are **not** release records.
 
 ## Source records and observations
 
@@ -44,3 +44,13 @@ P1068 is a distinct bent/angle family and additionally needs accurate bend/offse
 5. Explicit review decision to promote; **no automatic promotion from the candidate inventory**.
 
 As of this revision **P1065–P1068 remain excluded from release snapshots**, and `dimensions`/`hole_pattern` remain null.
+
+## Direct manufacturer catalog reference: flat-plate series
+
+The uploaded `unistrut-general-catalog.pdf`, **printed page 81** (PDF page 81), specifies a common rule for the **1-5/8 in width fittings unless otherwise shown**: 9/16 in hole diameter, 13/16 in from free end to center, 1-7/8 in center pitch and 1-5/8 in plate width. Its steel thickness is **conditional**: 1/4 in for steel meeting/exceeding ASTM A1011 SS GR 33, **or** 0.220 in for steel meeting/exceeding ASTM A1011 HSLAS GR 45. The individual illustrations show two, three and four holes with lengths 3-1/2 in (P1065), 5-3/8 in (P1066), 7-1/4 in (P1067). This is a different catalog source/printed pagination from ChannelStrut's secondary citation to General Engineering Catalog No. 17 page 90; do not conflate editions.
+
+The exact longitudinal arithmetic checks all three parts: **length = 2 × (13/16 in) + (hole count − 1) × (1-7/8 in)**. See `etl/fittings/flat_plate_reference.json` for the sourced family rules, and `src/strut_catalog_etl/flat_plate_reference.py` for the explicit, **provisional** CAD geometry derivation. It does not edit release seed or generated snapshots.
+
+Important reservations: the plate-wide hole centerline is visually indicated but not dimensioned, and corner radius is unpublished. The caller must explicitly opt into the transverse-centerline inference; the resulting record is marked `release_eligible: false` regardless of validity. Tolerance and actual steel grade/variant material selection remain unresolved. The catalog offers alternative conditional thicknesses—not an unconditional 1/4 in thickness for every P1065.
+
+The reference JSON was transcribed from the provided manufacturer catalog; the actual PDF is **not committed** to this repository, so its physical checksum/revision should be recorded upon approved acquisition if the repo's source policy later permits. The ChannelStrut reference is secondary corroboration, not the source of authoritative dimensions.
