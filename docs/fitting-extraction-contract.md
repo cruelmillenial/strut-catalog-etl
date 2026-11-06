@@ -1,28 +1,46 @@
-# Fitting submittal extraction contract (draft)
+# Fitting submittal extraction and geometry contract (draft)
 
-This stage inventories manufacturer documents without promoting placeholder fitting geometry.
-The next stage reads each linked PDF and records a traceable candidate geometry **before** any normalized fitting is added to a released catalog snapshot.
+The manufacturer submittals for P1065–P1068 have been inspected (page 1 each), with their SHA-256 digests and visible drawing callouts recorded in `etl/fittings/source_inventory.json`. They are **candidate inventory records**, not fully dimensioned CAD definitions. The PDFs themselves are not committed to this repository. In particular, no manufacturer-exact hole diameter or center array has been established.
 
-## Source fields
+## Source records and observations
 
-- `id`: exact manufacturer part identifier, matched to the source manifest.
-- `source_document_url`, `source_manifest_label`: stable manifest reference.
-- `source_sha256`, `source_pages`: populated only after retrieving and inspecting the PDF.
-- `geometry_family`: based on the depicted manufactured geometry, not assumptions from adjacent part numbers.
-- `dimensions`: measured/catalog dimension declarations with units and cited pages.
-- `hole_pattern`: counts, diameters, centers or center-to-center spacing, and orientation as explicitly shown.
-- `verification_status`: `unverified`, `reviewed`, or `verified`.
+- `id`, `source_document_url`, `source_manifest_label`: manufacturer and manifest identity.
+- `source_sha256`, `source_pages`: observed PDF checksums and inspected pages.
+- `geometry_family`: shape classification from the depicted fitting, independent of manufacturer-specific dimensional claims.
+- `drawing_callouts`: numbers actually printed in the sheet, with page and units. Manufacturer metric values may be rounded and must not silently replace exact fractional-inch callouts.
+- `visible_hole_count`: counted in illustration, not an extracted hole-pattern dimension.
+- `dimensions` and `hole_pattern`: remain `null` until complete geometry is established.
+- `geometry_gaps`: unresolved inputs blocking promotion.
 
-## Family normalization guidelines
+## Flat splice plate geometry contract (P1065–P1067)
 
-A fitting *family* describes a geometric construction method (flat plate, bent angle, shaped planar plate, etc.); a fitting *variant* identifies a manufacturer SKU. Hole count and diameter are variant properties and are not assumed to imply dimensions. If the vendor does not provide coordinates needed for exact geometry, retain a documented inference or mark geometry incomplete. Do not silently substitute the Workbench's pre-ETL placeholder dimensions.
+One planar rectangular plate builder accommodates multiple counts of round holes. Proposed normalized coordinates and dimensions are millimeters, with **origin at one outside corner**, **X along overall length**, **Y along plate width**, and **Z through thickness**. An explicit ordered hole list is preferred to assuming equal pitch.
 
-## Promotion gates
+`src/strut_catalog_etl/fitting_geometry.py:validate_flat_plate` is the initial shape-integrity gate. A complete candidate must provide:
 
-1. PDF acquired with checksum and page-level provenance.
-2. Drawing reviewed for outline, material thickness, hole count, hole diameter/slot geometry and placement.
-3. Every dimension marked source-specified or inferred, with unit checks.
-4. Structural validation of the normalized record and its hole array.
-5. Reproducible snapshot build and downstream FreeCAD comparison.
+- `family = "flat_splice_plate"`
+- positive `length_mm`, `width_mm`, `thickness_mm`
+- nonempty `holes`, each `{"shape": "round", "x_mm": ..., "y_mm": ..., "diameter_mm": ...}`
+- every round hole strictly inside the rectangle; no overlapping holes
 
-As of this draft, manufacturer PDF downloads are **not** included in the repository and all four records remain unverified. This intentionally blocks claims of manufacturer-exact geometry.
+The validator verifies geometry feasibility **only**. It does not establish manufacturer authenticity, strength, clearance standards, accuracy, or provenance, nor does it convert an inspected inventory record into a released record. The initial code intentionally rejects slotted holes; those need a separate geometric contract. A test fixture with synthetic dimensions is not a representation of P1065.
+
+## Fastener selection and variation
+
+Separate **nominal fastener diameter**, **hole clearance policy**, and **actual hole diameter**. The first two may determine a custom hole size; manufacturer-observed hole diameter remains authoritative in catalog mode. Custom geometry must not retain an unqualified manufacturer-exact SKU identity. Support both customary and metric nominal bolt selections in the eventual front end.
+
+## Metrology / source gap disposition
+
+Before exact release promotion, acquire manufacturer dimensioned drawings or inspect a **positively identified, authentic part**. For P1065–P1067 obtain plate width, thickness, overall length confirmation, per-hole diameter/shape, center coordinates or end offsets + pitch, and relevant edge/corner details. Record measurement method, instrument, resolution, uncertainty/repeatability where possible, sample count, part identity and finish, units, measurement date and operator. A single physical sample gives *observed sample geometry*, not manufacturer design nominal or tolerance. Do not infer tolerance, exact nominal dimensions or structural rating from samples.
+
+P1068 is a distinct bent/angle family and additionally needs accurate bend/offset and dimension-datum definition.
+
+## Release promotion gate
+
+1. Provenance and part identity established.
+2. Fully defined geometry with explicitly documented origins (`manufacturer_print`, `measured_sample`, or separately flagged engineering assumptions/derivations).
+3. Semantic geometry validation and provenance checks; complete hole geometry required.
+4. Reproducible snapshot, regression tests and downstream FreeCAD comparison.
+5. Explicit review decision to promote; **no automatic promotion from the candidate inventory**.
+
+As of this revision **P1065–P1068 remain excluded from release snapshots**, and `dimensions`/`hole_pattern` remain null.
