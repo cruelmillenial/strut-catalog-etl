@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source": {
+    "type": "manufacturer_catalog",
+    "title": "Unistrut general catalog, uploaded project PDF (2013/2016 metadata)",
+    "file": "unistrut-general-catalog.pdf",
+    "printed_page": 81,
+    "pdf_page": 81,
+    "context": "Flat Plate Fittings — 1-5/8 in framing series",
+    "note": "Catalog page 81 examined directly; separate from ChannelStrut citing General Engineering Catalog No.17 p90. Catalog edition designation not yet positively identified from this PDF."
+  },
+  "standard_dimensions": {
+    "applicability": "1-5/8 in width series channel fittings unless otherwise shown on individual drawing",
+    "hole_diameter_in": "9/16",
+    "end_center_in": "13/16",
+    "pitch_in": "1 7/8",
+    "width_in": "1 5/8",
+    "thickness_options": [
+      {
+        "thickness_in": "1/4",
+        "steel_requirement": "meeting or exceeding ASTM A1011 SS GR 33"
+      },
+      {
+        "thickness_in": "0.220",
+        "steel_requirement": "meeting or exceeding ASTM A1011 HSLAS GR 45"
+      }
+    ]
+  },
+  "parts": [
+    {
+      "id": "P1065",
+      "length_in": "3 1/2",
+      "hole_count": 2
+    },
+    {
+      "id": "P1066",
+      "length_in": "5 3/8",
+      "hole_count": 3
+    },
+    {
+      "id": "P1067",
+      "length_in": "7 1/4",
+      "hole_count": 4
+    }
+  ],
+  "derived": {
+    "x_centers_rule": "end_center_in + i * pitch_in, i=0..hole_count-1",
+    "longitudinal_fit_rule": "2*end_center + (hole_count-1)*pitch == overall_length",
+    "y_center_rule": "width/2 only by illustrated centerline; inferred, NOT directly dimensioned",
+    "corner_radius": "unpublished; intentionally unresolved",
+    "status": "reference-geometry candidate; not verified manufacturer-exact"
+  },
+  "caveats": [
+    "The hole centerline across plate width is implied by illustrations but not dimensioned.",
+    "Thickness varies conditionally by steel material grade; do not default to 1/4 independent of material.",
+    "The drawing does not specify corner radii or corner geometry.",
+    "No dimensional tolerances or structural rating are inferred.",
+    "Do not promote these reference models into release snapshot without review."
+  ]
+}
