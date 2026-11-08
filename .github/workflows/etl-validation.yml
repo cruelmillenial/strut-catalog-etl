@@ -28,6 +28,16 @@ jobs:
         run: python -m pytest
       - name: Validate catalog records
         run: python tools/validate_catalog.py --data-dir catalog
+      - name: Verify reference preview is reproducible and matches checked-in artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          first="$(mktemp)"
+          second="$(mktemp)"
+          python -m strut_catalog_etl.fitting_pipeline --output "$first"
+          python -m strut_catalog_etl.fitting_pipeline --output "$second"
+          cmp "$first" "$second"
+          cmp "$first" generated/preview/flat_plate_fittings.json
       - name: Verify deterministic catalog snapshot
         shell: bash
         run: |
