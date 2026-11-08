@@ -54,3 +54,34 @@ The exact longitudinal arithmetic checks all three parts: **length = 2 × (13/16
 Important reservations: the plate-wide hole centerline is visually indicated but not dimensioned, and corner radius is unpublished. The caller must explicitly opt into the transverse-centerline inference; the resulting record is marked `release_eligible: false` regardless of validity. Tolerance and actual steel grade/variant material selection remain unresolved. The catalog offers alternative conditional thicknesses—not an unconditional 1/4 in thickness for every P1065.
 
 The reference JSON was transcribed from the provided manufacturer catalog; the actual PDF is **not committed** to this repository, so its physical checksum/revision should be recorded upon approved acquisition if the repo's source policy later permits. The ChannelStrut reference is secondary corroboration, not the source of authoritative dimensions.
+
+## ETL-to-FreeCAD reference-preview pipeline (implemented on PR #4)
+
+The disconnected reference generator is now invoked by
+`src/strut_catalog_etl/fitting_pipeline.py`. Its output is the reproducible
+`generated/preview/flat_plate_fittings.json` dataset, comprising three source
+parts times two conditional steel-thickness rules (six distinctly named
+`REF_` variants). It is **not** a production snapshot.
+
+Build with
+`python -m strut_catalog_etl.fitting_pipeline --output generated/preview/flat_plate_fittings.json`.
+Each preview fitting contains a canonical `geometry` (length, width, thickness,
+explicit round hole list, mm corner-origin X/Y), a manufacturer reference part
+number, source checksum and page, declared assumptions, `accuracy_class =
+reference_inferred`, and `record_status = preview_only`.
+The pipeline runs `validate_fitting_record()` on each candidate. CI compares
+the emitted bytes to the committed preview dataset to prevent drift.
+
+A gated **optional** approved-fitting input has also been added to
+`python -m strut_catalog_etl.build_snapshot --approved-fittings <reviewed.json>`.
+Only records with `record_status = release_approved` AND explicit
+`release_review` fields (decision/reviewer/date/approved scope) pass
+`validate_fitting_record(for_release=True)`. A preview-only payload is rejected;
+this is tested using both negative and synthetic positive release fixtures.
+No P1065–P1068 candidate has actually been approved or promoted.
+
+A separate *draft* downstream Workbench PR consumes the identical preview JSON
+without copying the extraction code into FreeCAD. Its fitting builder subtracts
+the hole cylinders from a centered plate solid. The older `P1065` placeholder
+remains separate and untouched until a reviewed migration is justified. This
+maintains a complete prototype path while preserving production boundaries.
